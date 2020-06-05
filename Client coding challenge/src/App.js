@@ -8,12 +8,34 @@ class App extends React.Component{
   constructor( props ){
     super( props );
     this.state = {
-      /*
-        Your code goes here
-      */
+      errorMessage = "",
+      apiURL = "https://www.googleapis.com/books/v1/volumes",
+      books = {}
     }
   }
 
+  findBook = (event) =>{
+    event.preventDefault();
+    const intitle = event.currentTarget.book_name.vale;
+
+    const url = `${apiURL}?q=intitle:${intitle}`;
+    const settings ={
+        method : 'GET'
+    }
+    fetch(url,settings)
+      .then(response =>{
+        if(response.ok){
+          return response.json;
+        }
+        throw new Error( response.statusText);
+      })
+      .then(responseJSON =>{
+        this.books = responseJSON;
+      })
+      .catch(err =>{
+        console.log(err);
+      })
+  }
   /* 
     Your code goes here
   */
@@ -21,9 +43,9 @@ class App extends React.Component{
   render(){
     return(
       <div>
-        {/* 
-          Your code goes here
-        */}
+        {
+          <BookForm />
+        }
       </div>
     )
   }

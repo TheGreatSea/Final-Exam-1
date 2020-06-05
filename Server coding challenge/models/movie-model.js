@@ -37,6 +37,27 @@ const Movies = {
                 .catch( err => {
                     throw new Error( err );
                 });
+    },
+    getMovieById : function (movie_ID){
+        return moviesCollection
+                .findOne( {movie_ID} )
+                .populate('actors',['firstName','lastName'])
+                .then( foundMovie => {
+                    return foundMovie;
+                })
+                .catch( err => {
+                    throw new Error( err );
+                });
+    },
+    removeActorFromMovieList : function (id, movie_objt){
+        return moviesCollection
+                .updateOne({movie_ID : id },movie_objt)
+                .then( updatedMovie => {
+                    return updatedMovie;
+                })
+                .catch( err => {
+                    throw new Error( err );
+                });
     }
     /*
         Your code goes here
