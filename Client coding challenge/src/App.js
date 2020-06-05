@@ -36,15 +36,12 @@ class App extends React.Component{
         console.log(err);
       })
   }
-  /* 
-    Your code goes here
-  */
-
   render(){
     return(
       <div>
         {
           <BookForm />
+          this.state.books.map(())
         }
       </div>
     )
